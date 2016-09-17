@@ -1,12 +1,15 @@
 extends layout
 
 block content
-  .question Question:
-    input(type="text" placeholder="question")
-  .answer
-    input(type="text" placeholder="answer1")
-  .answer
-    input(type="text" placeholder="answer2")
-  .addAnswer Add Answer
+  .questionsAndAnswers
+    .question Question:
+      input(type="text" placeholder="question")
+    .answer
+      input(type="text" placeholder="answer text")
+    .answer
+      input(type="text" placeholder="answer text")
+    .addAnswer.button(onclick="addAnswer(this)") Add Answer
 
-  .addQuestionButton Add Question
+  .addQuestion.button Add Question
+
+  script(src="/javascripts/addQuestion.js")

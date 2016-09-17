@@ -1,4 +1,5 @@
 var express = require('express');
+var expressLess = require('express-less');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -10,6 +11,10 @@ var users = require('./routes/users');
 var addQuestion = require('./routes/addQuestion');
 
 var app = express();
+
+app.use('/stylesheets', expressLess(__dirname + '/less'));
+// Enable error reporting permanently 
+app.use('/stylesheets', expressLess(__dirname + '/less', { debug: true }));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
