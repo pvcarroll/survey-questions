@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET add question form. */
 router.get('/', function(req, res, next) {
-  res.render('addQuestion', { title: 'Express' });
+  res.render('addQuestion', { title: 'Add Survey Question' });
 });
 
 module.exports = router;

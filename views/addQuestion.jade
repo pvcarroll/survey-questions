@@ -1,14 +1,15 @@
 extends layout
 
 block content
-  .questionsAndAnswers
-    .question Question:
-      input(type="text" placeholder="question")
+  h2 Add a new survey question
+  .question Question:
+    input(type="text" placeholder="question")
+  .answersSection
     .answer
-      input(type="text" placeholder="answer text")
+      input.answerInput(type="text" placeholder="answer text")
     .answer
-      input(type="text" placeholder="answer text")
-    .addAnswer.button(onclick="addAnswer(this)") Add Answer
+      input.answerInput(type="text" placeholder="answer text")
+    .addAnswer(onclick="addAnswer(this)") + Add Answer Choice
 
   .addQuestion.button Add Question
 
