@@ -13,10 +13,10 @@ var addQuestion = require('./routes/addQuestion');
 
 if (process.env.NODE_ENV) {
   var dbConnection = mysql.createConnection({
-    host: ENV[MYSQL_HOST],
-    user: ENV[MYSQL_USERNAME],
-    password: ENV[MYSQL_PASSWORD],
-    database: ENV[MYSQL_DATABASE]
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USERNAME,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE
   });
   dbConnection.connect();
 }
