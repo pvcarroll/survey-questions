@@ -1,3 +1,6 @@
+@inputBackground: #eee;
+@inputWidth: 250px;
+
 .button {
     display: inline-block;
     padding: 6px 8px;
@@ -6,15 +9,21 @@
     background-color: #FAF476;
 }
 
+.questionInput {
+  background-color: @inputBackground;
+  width: @inputWidth;
+}
+
 .answersSection {
     padding: 10px;
-    
+
     .answer {
         padding: 5px;
     }
 
     .answerInput {
-        background-color: #eee;
+        background-color: @inputBackground;
+        width: @inputWidth;
     }
 
     .addAnswer {

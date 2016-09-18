@@ -4,8 +4,9 @@ block content
   h2 Add a new survey question
   form(method='post', action='/addQuestion', name='add-question')
     .question Question:
-      input(type='text' name='question' placeholder='question')
-    .answersSection
+    .questionInputContainer
+      input.questionInput(type='text' name='question' placeholder='question')
+    .answersSection Answer Choices:
       .answer
         input.answerInput(type='text' name='answerChoice' placeholder='answer text')
       .answer
