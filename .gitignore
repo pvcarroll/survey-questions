@@ -1,2 +1,4 @@
 .DS_Store
 node_modules/
+.idea/
+survey-questions.iml
