@@ -5,10 +5,21 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mysql = require('mysql');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var addQuestion = require('./routes/addQuestion');
+
+if (process.env.NODE_ENV) {
+  var dbConnection = mysql.createConnection({
+    host: ENV[MYSQL_HOST],
+    user: ENV[MYSQL_USERNAME],
+    password: ENV[MYSQL_PASSWORD],
+    database: ENV[MYSQL_DATABASE]
+  });
+  dbConnection.connect();
+}
 
 var app = express();
 
