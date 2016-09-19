@@ -1,4 +1,5 @@
 var express = require('express');
+var questionModel = require('../models/question.js');
 var router = express.Router();
 
 /* GET add question form. */
@@ -8,7 +9,11 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
   console.log(req.body);
-  res.send('POST /addQuestion');
+
+
+  const foo = questionModel.foo();
+
+  res.send(foo);
 });
 
 module.exports = router;
