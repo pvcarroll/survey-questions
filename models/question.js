@@ -1,4 +1,5 @@
 var mysql = require('mysql');
+var Sequelize = require('sequelize');
 
 var sequelize;
 var dbConnection;
