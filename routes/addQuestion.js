@@ -11,7 +11,7 @@ router.post('/', function(req, res, next) {
   console.log(req.body);
 
 
-  const foo = questionModel.foo();
+  const foo = questionModel.saveQuestion(req.body.question, req.body.answerChoice);
 
   res.send(foo);
 });

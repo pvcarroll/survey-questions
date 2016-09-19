@@ -16,10 +16,10 @@ if (process.env.NODE_ENV) {
 
 }
 
-function foo() {
-  return 'question.js';
+function saveQuestion(question, answerChoices) {
+  return question + answerChoices;
 }
 
 module.exports = {
-  foo: foo
+  saveQuestion: saveQuestion
 };
