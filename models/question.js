@@ -5,15 +5,17 @@ var sequelize;
 var dbConnection;
 
 function saveQuestion(question, answerChoices) {
+  console.log('saveQuestion: ' + question + answerChoices);
   if (process.env.NODE_ENV) {
     sequelize = new Sequelize(process.env.CLEARDB_DATABASE_URL);
-    dbConnection = mysql.createConnection({
-      host: process.env.MYSQL_HOST,
-      user: process.env.MYSQL_USERNAME,
-      password: process.env.MYSQL_PASSWORD,
-      database: process.env.MYSQL_DATABASE
-    });
-    dbConnection.connect();
+    console.log('sequelize = #{sequelize}');
+    // dbConnection = mysql.createConnection({
+    //   host: process.env.MYSQL_HOST,
+    //   user: process.env.MYSQL_USERNAME,
+    //   password: process.env.MYSQL_PASSWORD,
+    //   database: process.env.MYSQL_DATABASE
+    // });
+    // dbConnection.connect();
 
     const Question = sequelize.define('question', {
       question: {
