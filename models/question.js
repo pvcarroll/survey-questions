@@ -19,6 +19,9 @@ function saveQuestion(questionText, answerChoices) {
     // });
     // dbConnection.connect();
 
+    console.log('Sequelize.STRING = ' + Sequelize.STRING);
+    console.log('Sequelize.ARRAY = ' + Sequelize.ARRAY);
+
     const Question = sequelize.define('question', {
       questionText: Sequelize.STRING,
       answerChoices: Sequelize.ARRAY
