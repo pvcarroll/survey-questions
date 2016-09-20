@@ -8,7 +8,7 @@ function saveQuestion(question, answerChoices) {
   console.log('saveQuestion: ' + question + answerChoices);
   if (process.env.NODE_ENV) {
     sequelize = new Sequelize(process.env.CLEARDB_DATABASE_URL);
-    console.log('sequelize = ' + JSON.stringify(sequelize, null, 4));
+    console.log('sequelize = ' + Object.keys(sequelize));
     // dbConnection = mysql.createConnection({
     //   host: process.env.MYSQL_HOST,
     //   user: process.env.MYSQL_USERNAME,
