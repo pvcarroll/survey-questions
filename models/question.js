@@ -1,13 +1,13 @@
 var mysql = require('mysql');
 var Sequelize = require('sequelize');
 
-console.log('Sequelize = ' + Object.keys(Sequelize));
-
 var sequelize;
 var dbConnection;
 
 function saveQuestion(question, answerChoices) {
   console.log('saveQuestion: ' + question + answerChoices);
+  console.log('Sequelize = ' + Object.keys(Sequelize));
+
   if (process.env.NODE_ENV) {
     sequelize = new Sequelize(process.env.CLEARDB_DATABASE_URL);
     console.log('sequelize = ' + Object.keys(sequelize));
