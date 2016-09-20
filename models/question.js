@@ -1,6 +1,8 @@
 var mysql = require('mysql');
 var Sequelize = require('sequelize');
 
+console.log('Sequelize = ' + Object.keys(Sequelize));
+
 var sequelize;
 var dbConnection;
 
