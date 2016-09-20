@@ -8,7 +8,7 @@ function saveQuestion(question, answerChoices) {
   console.log('saveQuestion: ' + question + answerChoices);
   if (process.env.NODE_ENV) {
     sequelize = new Sequelize(process.env.CLEARDB_DATABASE_URL);
-    console.log('sequelize = ' + sequelize);
+    console.dir('sequelize = ' + sequelize);
     // dbConnection = mysql.createConnection({
     //   host: process.env.MYSQL_HOST,
     //   user: process.env.MYSQL_USERNAME,
@@ -27,8 +27,10 @@ function saveQuestion(question, answerChoices) {
         field: 'answer_choices'
       }
     });
+    console.dir('Question = ' + Question);
 
     Question.sync().then(function() {
+      console.log('Question.sync().then');
       const data = {
         question: question,
         answer_choices: answerChoices
@@ -37,6 +39,7 @@ function saveQuestion(question, answerChoices) {
         console.dir(question);
       });
     });
+    console.dir('SAVEQUESTION END');
   }
 
   return question + answerChoices;
