@@ -20,14 +20,8 @@ function saveQuestion(questionText, answerChoices) {
     // dbConnection.connect();
 
     const Question = sequelize.define('question', {
-      questionText: {
-        type: Sequelize.STRING,
-        field: 'question_text'
-      },
-      answerChoices: {
-        type: Sequelize.ARRAY,
-        field: 'answer_choices'
-      }
+      questionText: Sequelize.STRING,
+      answerChoices: Sequelize.ARRAY
     });
     console.log('Question = ' + Question);
 
