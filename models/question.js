@@ -4,8 +4,8 @@ var Sequelize = require('sequelize');
 var sequelize;
 var dbConnection;
 
-function saveQuestion(question, answerChoices) {
-  console.log('saveQuestion: ' + question + answerChoices);
+function saveQuestion(questionText, answerChoices) {
+  console.log('saveQuestion: ' + questionText + answerChoices);
   console.log('Sequelize = ' + Object.keys(Sequelize));
 
   if (process.env.NODE_ENV) {
@@ -20,21 +20,21 @@ function saveQuestion(question, answerChoices) {
     // dbConnection.connect();
 
     const Question = sequelize.define('question', {
-      // question: {
-      //   type: Sequelize.STRING,
-      //   field: 'question'
-      // },
-      // answerChoices: {
-      //   type: Sequelize.ARRAY,
-      //   field: 'answer_choices'
-      // }
+      questionText: {
+        type: Sequelize.STRING,
+        field: 'question_text'
+      },
+      answerChoices: {
+        type: Sequelize.ARRAY,
+        field: 'answer_choices'
+      }
     });
     console.log('Question = ' + Question);
 
     Question.sync().then(function() {
       console.log('Question.sync().then');
       const data = {
-        question: question,
+        question_text: questionText,
         answer_choices: answerChoices
       };
       Question.create(data).then(function(question) {
@@ -44,7 +44,7 @@ function saveQuestion(question, answerChoices) {
     console.dir('SAVEQUESTION END');
   }
 
-  return question + answerChoices;
+  return questionText + answerChoices;
 }
 
 module.exports = {
