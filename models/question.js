@@ -29,7 +29,7 @@ function saveQuestion(question, answerChoices) {
       //   field: 'answer_choices'
       // }
     });
-    console.log('Question = ' + JSON.stringify(Question, null, 4));
+    console.log('Question = ' + Question);
 
     Question.sync().then(function() {
       console.log('Question.sync().then');
