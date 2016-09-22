@@ -44,13 +44,13 @@ function saveQuestion(questionText, answerChoices) {
     console.log('AnswerChoice.sync().then');
     console.log("arguments  = " + arguments);
     console.log("answerChoices[i] = " + answerChoices);
-    const data = {
+    var data = {
       answer: answerChoices[0]
     };
     AnswerChoice.create(data).then(function(answer_choice) {
       console.dir("ANSWER_CHOICE0 = " + answer_choice);
     });
-    const data = {
+    data = {
       answer: answerChoices[1]
     };
     AnswerChoice.create(data).then(function(answer_choice) {
