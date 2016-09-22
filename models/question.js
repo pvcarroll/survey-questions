@@ -7,8 +7,8 @@ var dbConnection;
 function saveQuestion(questionText, answerChoices) {
   console.log('saveQuestion: ' + questionText + answerChoices);
   console.log('Sequelize = ' + Object.keys(Sequelize));
-
-  if (process.env.NODE_ENV) {
+  console.log("process.env.CLEARDB_DATABASE_URL = " + process.env.CLEARDB_DATABASE_URL);
+  // if (process.env.NODE_ENV) {
     sequelize = new Sequelize(process.env.CLEARDB_DATABASE_URL);
     console.log('sequelize = ' + Object.keys(sequelize));
     // dbConnection = mysql.createConnection({
@@ -19,27 +19,40 @@ function saveQuestion(questionText, answerChoices) {
     // });
     // dbConnection.connect();
 
-    console.log('Sequelize.STRING = ' + Sequelize.STRING);
-    console.log('Sequelize.ARRAY = ' + Sequelize.ARRAY);
-
     const Question = sequelize.define('question', {
-      questionText: Sequelize.STRING,
-      answerChoices: Sequelize.ARRAY
+      text: Sequelize.STRING
     });
+    const AnswerChoice = sequelize.define('answer_choice', {
+      text: Sequelize.STRING
+    });
+    Question.hasMany(AnswerChoice);
+    AnswerChoice.belongsTo(Question);
+
     console.log('Question = ' + Question);
+    console.log('AnswerChoice = ' + AnswerChoice);
 
     Question.sync().then(function() {
       console.log('Question.sync().then');
       const data = {
-        question_text: questionText,
-        answer_choices: answerChoices
+        text: questionText,
       };
       Question.create(data).then(function(question) {
         console.dir(question);
       });
     });
+    for (var i = 0; i < answerChoices.length; i++) {
+      AnswerChoice.sync().then(function() {
+        console.log('AnswerChoice.sync().then');
+        const data = {
+          text: answerChoices[i]
+        };
+        AnswerChoice.create(data).then(function(answer_choice) {
+          console.dir(answer_choice);
+        });
+      });
+    }
     console.dir('SAVEQUESTION END');
-  }
+  // }
 
   return questionText + answerChoices;
 }
