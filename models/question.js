@@ -40,6 +40,7 @@ function saveQuestion(questionText, answerChoices) {
   for (var i = 0; i < answerChoices.length; i++) {
     AnswerChoice.sync().then(function() {
       console.log('AnswerChoice.sync().then');
+      console.log("answerChoices[i] = " + answerChoices[i]);
       const data = {
         answer: answerChoices[i]
       };
