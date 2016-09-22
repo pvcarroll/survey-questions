@@ -40,20 +40,17 @@ function saveQuestion(questionText, answerChoices) {
   console.log("answerChoices = " + answerChoices);
   console.log("answerChoices[0] = " + answerChoices[0]);
   console.log("answerChoices[1] = " + answerChoices[1]);
-  for (var i = 0; i < answerChoices.length; i++) {
-    AnswerChoice.sync().then(function() {
-      const i = i;
-      console.log('AnswerChoice.sync().then');
-      console.log("arguments  = " + arguments);
-      console.log("answerChoices[i] = " + answerChoices[i]);
-      const data = {
-        answer: answerChoices[i]
-      };
-      AnswerChoice.create(data).then(function(answer_choice) {
-        console.dir("ANSWER_CHOICE = " + answer_choice);
-      });
+  AnswerChoice.sync().then(function() {
+    console.log('AnswerChoice.sync().then');
+    console.log("arguments  = " + arguments);
+    console.log("answerChoices[i] = " + answerChoices);
+    const data = {
+      answer: answerChoices
+    };
+    AnswerChoice.create(data).then(function(answer_choice) {
+      console.dir("ANSWER_CHOICE = " + answer_choice);
     });
-  }
+  });
   console.dir('SAVEQUESTION END');
 
   return questionText + answerChoices;
