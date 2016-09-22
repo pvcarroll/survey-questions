@@ -44,7 +44,7 @@ function saveQuestion(questionText, answerChoices) {
     AnswerChoice.sync().then(function() {
       const i = i;
       console.log('AnswerChoice.sync().then');
-      console.log("i = " + i);
+      console.log("arguments  = " + arguments);
       console.log("answerChoices[i] = " + answerChoices[i]);
       const data = {
         answer: answerChoices[i]
