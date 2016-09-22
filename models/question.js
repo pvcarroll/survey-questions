@@ -37,7 +37,7 @@ function saveQuestion(questionText, answerChoices) {
         text: questionText,
       };
       Question.create(data).then(function(question) {
-        console.dir(question);
+        console.dir("QUESTION = " + question);
       });
     });
     for (var i = 0; i < answerChoices.length; i++) {
@@ -47,7 +47,7 @@ function saveQuestion(questionText, answerChoices) {
           text: answerChoices[i]
         };
         AnswerChoice.create(data).then(function(answer_choice) {
-          console.dir(answer_choice);
+          console.dir("ANSWER_CHOICE = " + answer_choice);
         });
       });
     }
