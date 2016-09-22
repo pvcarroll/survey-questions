@@ -20,7 +20,7 @@ function saveQuestion(questionText, answerChoices) {
     text: Sequelize.STRING
   });
   const AnswerChoice = sequelize.define('answer_choice', {
-    text: Sequelize.STRING
+    answer: Sequelize.STRING
   });
   Question.hasMany(AnswerChoice);
   AnswerChoice.belongsTo(Question);
@@ -41,7 +41,7 @@ function saveQuestion(questionText, answerChoices) {
     AnswerChoice.sync().then(function() {
       console.log('AnswerChoice.sync().then');
       const data = {
-        text: answerChoices[i]
+        answer: answerChoices[i]
       };
       AnswerChoice.create(data).then(function(answer_choice) {
         console.dir("ANSWER_CHOICE = " + answer_choice);
