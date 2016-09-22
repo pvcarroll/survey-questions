@@ -37,6 +37,7 @@ function saveQuestion(questionText, answerChoices) {
       console.dir("QUESTION = " + question);
     });
   });
+  console.log("answerChoices = " + answerChoices)
   for (var i = 0; i < answerChoices.length; i++) {
     AnswerChoice.sync().then(function() {
       console.log('AnswerChoice.sync().then');
