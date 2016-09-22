@@ -45,10 +45,16 @@ function saveQuestion(questionText, answerChoices) {
     console.log("arguments  = " + arguments);
     console.log("answerChoices[i] = " + answerChoices);
     const data = {
-      answer: answerChoices
+      answer: answerChoices[0]
     };
     AnswerChoice.create(data).then(function(answer_choice) {
-      console.dir("ANSWER_CHOICE = " + answer_choice);
+      console.dir("ANSWER_CHOICE0 = " + answer_choice);
+    });
+    const data = {
+      answer: answerChoices[1]
+    };
+    AnswerChoice.create(data).then(function(answer_choice) {
+      console.dir("ANSWER_CHOICE1 = " + answer_choice);
     });
   });
   console.dir('SAVEQUESTION END');
