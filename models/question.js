@@ -7,7 +7,12 @@ var dbConnection;
 function saveQuestion(questionText, answerChoices) {
   console.log('saveQuestion: ' + questionText + answerChoices);
   console.log("process.env.CLEARDB_DATABASE_URL = " + process.env.CLEARDB_DATABASE_URL);
-  sequelize = new Sequelize(process.env.CLEARDB_DATABASE_URL);
+  if (process.env.CLEARDB_DATABASE_URL) {
+    sequelize = new Sequelize(process.env.CLEARDB_DATABASE_URL);
+  } else {
+    var localMysqlConfig = require("../config/localMysqlConfig");
+    sequelize = new Sequelize(localMysqlConfig.database, localMysqlConfig.user, localMysqlConfig.password);
+  }
   // dbConnection = mysql.createConnection({
   //   host: process.env.MYSQL_HOST,
   //   user: process.env.MYSQL_USERNAME,
@@ -42,7 +47,6 @@ function saveQuestion(questionText, answerChoices) {
   console.log("answerChoices[1] = " + answerChoices[1]);
   AnswerChoice.sync().then(function() {
     console.log('AnswerChoice.sync().then');
-    console.log("arguments  = " + arguments);
     console.log("answerChoices[i] = " + answerChoices);
     var data = {
       answer: answerChoices[0]

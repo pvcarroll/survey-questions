@@ -3,3 +3,4 @@ node_modules/
 .idea/
 survey-questions.iml
 npm-debug.log
+config/*
