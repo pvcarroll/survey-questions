@@ -2,13 +2,14 @@ var mysql = require('mysql');
 var Sequelize = require('sequelize');
 
 var sequelize;
-var dbConnection;
 
 function saveQuestion(questionText, answerChoices) {
-  
+
   if (process.env.CLEARDB_DATABASE_URL) {
+    // Production
     sequelize = new Sequelize(process.env.CLEARDB_DATABASE_URL);
   } else {
+    // Development
     const localMysqlConfig = require("../config/localMysqlConfig");
     sequelize = new Sequelize(localMysqlConfig.database, localMysqlConfig.user, localMysqlConfig.password);
   }
@@ -37,7 +38,6 @@ function saveQuestion(questionText, answerChoices) {
     };
     Question.create(data).then(function(question) {
       console.dir("QUESTION = " + question);
-      console.dir("QUESTION.ID = " + question.id);
 
       AnswerChoice.sync().then(function() {
         var data;
@@ -56,8 +56,6 @@ function saveQuestion(questionText, answerChoices) {
       });
     });
   });
-
-  console.dir('SAVEQUESTION END');
 
   return questionText + answerChoices;
 }
