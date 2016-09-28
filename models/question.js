@@ -5,21 +5,13 @@ var sequelize;
 var dbConnection;
 
 function saveQuestion(questionText, answerChoices) {
-  console.log('saveQuestion: ' + questionText + answerChoices);
-  console.log("process.env.CLEARDB_DATABASE_URL = " + process.env.CLEARDB_DATABASE_URL);
+  
   if (process.env.CLEARDB_DATABASE_URL) {
     sequelize = new Sequelize(process.env.CLEARDB_DATABASE_URL);
   } else {
     const localMysqlConfig = require("../config/localMysqlConfig");
     sequelize = new Sequelize(localMysqlConfig.database, localMysqlConfig.user, localMysqlConfig.password);
   }
-  // dbConnection = mysql.createConnection({
-  //   host: process.env.MYSQL_HOST,
-  //   user: process.env.MYSQL_USERNAME,
-  //   password: process.env.MYSQL_PASSWORD,
-  //   database: process.env.MYSQL_DATABASE
-  // });
-  // dbConnection.connect();
 
   const Question = sequelize.define('question', {
     text: Sequelize.STRING
@@ -46,27 +38,20 @@ function saveQuestion(questionText, answerChoices) {
     Question.create(data).then(function(question) {
       console.dir("QUESTION = " + question);
       console.dir("QUESTION.ID = " + question.id);
-      AnswerChoice.sync().then(function() {
 
-        var data = {
-          answer: answerChoices[0],
-          questionId: question.id
-        };
-        var includeObject = {
-          include: [Question]
-        };
-        AnswerChoice.create(data, includeObject).then(function(answer_choice) {
-          console.dir("ANSWER_CHOICE0 = " + answer_choice);
-        });
-        data = {
-          answer: answerChoices[1],
-          questionId: question.id
-        };
-        includeObject = {
-          include: [Question]
-        };
-        AnswerChoice.create(data, includeObject).then(function(answer_choice) {
-          console.dir("ANSWER_CHOICE1 = " + answer_choice);
+      AnswerChoice.sync().then(function() {
+        var data;
+        answerChoices.forEach(function(answerChoice, i) {
+          data = {
+            answer: answerChoice,
+            questionId: question.id
+          };
+          var includeObject = {
+            include: [Question]
+          };
+          AnswerChoice.create(data, includeObject).then(function(answer_choice) {
+            console.dir("ANSWER_CHOICE = " + answer_choice);
+          });
         });
       });
     });
