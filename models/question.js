@@ -10,7 +10,7 @@ function saveQuestion(questionText, answerChoices) {
   if (process.env.CLEARDB_DATABASE_URL) {
     sequelize = new Sequelize(process.env.CLEARDB_DATABASE_URL);
   } else {
-    var localMysqlConfig = require("../config/localMysqlConfig");
+    const localMysqlConfig = require("../config/localMysqlConfig");
     sequelize = new Sequelize(localMysqlConfig.database, localMysqlConfig.user, localMysqlConfig.password);
   }
   // dbConnection = mysql.createConnection({
@@ -28,39 +28,50 @@ function saveQuestion(questionText, answerChoices) {
     answer: Sequelize.STRING
   });
   Question.hasMany(AnswerChoice);
-  AnswerChoice.belongsTo(Question);
+  AnswerChoice.belongsTo(Question, { foreignKey: "questionId" });
+
+  sequelize.sync().then(function() {
+  });
 
   console.log('Question = ' + Question);
   console.log('AnswerChoice = ' + AnswerChoice);
 
+  var questionId;
+
   Question.sync().then(function() {
     console.log('Question.sync().then');
     const data = {
-      text: questionText,
+      text: questionText
     };
     Question.create(data).then(function(question) {
       console.dir("QUESTION = " + question);
+      console.dir("QUESTION.ID = " + question.id);
+      AnswerChoice.sync().then(function() {
+
+        var data = {
+          answer: answerChoices[0],
+          questionId: question.id
+        };
+        var includeObject = {
+          include: [Question]
+        };
+        AnswerChoice.create(data, includeObject).then(function(answer_choice) {
+          console.dir("ANSWER_CHOICE0 = " + answer_choice);
+        });
+        data = {
+          answer: answerChoices[1],
+          questionId: question.id
+        };
+        includeObject = {
+          include: [Question]
+        };
+        AnswerChoice.create(data, includeObject).then(function(answer_choice) {
+          console.dir("ANSWER_CHOICE1 = " + answer_choice);
+        });
+      });
     });
   });
-  console.log("answerChoices = " + answerChoices);
-  console.log("answerChoices[0] = " + answerChoices[0]);
-  console.log("answerChoices[1] = " + answerChoices[1]);
-  AnswerChoice.sync().then(function() {
-    console.log('AnswerChoice.sync().then');
-    console.log("answerChoices[i] = " + answerChoices);
-    var data = {
-      answer: answerChoices[0]
-    };
-    AnswerChoice.create(data).then(function(answer_choice) {
-      console.dir("ANSWER_CHOICE0 = " + answer_choice);
-    });
-    data = {
-      answer: answerChoices[1]
-    };
-    AnswerChoice.create(data).then(function(answer_choice) {
-      console.dir("ANSWER_CHOICE1 = " + answer_choice);
-    });
-  });
+
   console.dir('SAVEQUESTION END');
 
   return questionText + answerChoices;
