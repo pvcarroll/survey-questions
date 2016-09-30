@@ -52,17 +52,24 @@ function saveQuestion(questionText, answerChoices) {
 }
 
 function getRandomQuestion() {
-  // sequelize.query('SELECT * FROM questions', { type: sequelize.QueryTypes.SELECT }).then(function(results) {
-  //   console.log("results = " + JSON.stringify(results));
-  // });
-  var randomQuestion = Question.find({
+  var question, answerChoices;
+  return Question.find({
     order: [
         Sequelize.fn('RAND')
     ]
-  }).then(function(result) {
-    console.log('result = ' + JSON.stringify(result));
+  }).then(function(questionResult) {
+    console.log('questionResult = ' + JSON.stringify(questionResult));
+    question = questionResult;
+    return AnswerChoice.findAll({
+      where: {
+        questionId: questionResult.id
+      }
+    }).then(function(answerChoicesResult) {
+      console.log("answerChoicesResult = " + JSON.stringify(answerChoicesResult));
+      answerChoices = answerChoicesResult;
+      return [question, answerChoices];
+    });
   });
-  console.log('randomQuestion = ' + randomQuestion);
 }
 
 module.exports = {
