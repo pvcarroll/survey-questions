@@ -5,8 +5,9 @@ block content
   button(class="button" onclick="location.href='/addQuestion'") Add Question
   button(class="button" onclick="location.href='/viewSurveyResults'") View Survey Results
 
-  h2= "Random Survey Question"
-  .question
+  h2= title
+
+  .question= question
   .answersSection
-    .answer
-    .answer
+    each answer in answerChoices
+      .answer= answer.answer

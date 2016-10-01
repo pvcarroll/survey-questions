@@ -6,11 +6,11 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   var questionsAndAnswers, question, answerChoices;
   var questionPromise = questionModel.getRandomQuestion();
-  var questionsAndAnswers = questionPromise.then(function(questionAndAnswersResult) {
+  questionsAndAnswers = questionPromise.then(function(questionAndAnswersResult) {
     console.log("questionAndAnswersResults = " + JSON.stringify(questionAndAnswersResult));
-    question = questionsAndAnswers[0];
-    answerChoices = questionsAndAnswers[1];
-    res.render('index', { title: 'Survey Question', question: question, answerChoices: answerChoices });
+    question = questionAndAnswersResult[0];
+    answerChoices = questionAndAnswersResult[1];
+    res.render('index', { title: 'Survey Question', question: question.text, answerChoices: answerChoices });
   });
 });
 
