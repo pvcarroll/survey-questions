@@ -9,5 +9,8 @@ block content
 
   .question= question
   .answersSection
-    each answer in answerChoices
-      .answer= answer.answer
+    each answerChoice in answerChoices
+      .answerChoiceGroup
+        input(type="radio" name="answerChoice")
+        .answerChoice= answerChoice.answer
+    button(type="submit" class="button") Submit

@@ -58,14 +58,12 @@ function getRandomQuestion() {
         Sequelize.fn('RAND')
     ]
   }).then(function(questionResult) {
-    console.log('questionResult = ' + JSON.stringify(questionResult));
     question = questionResult;
     return AnswerChoice.findAll({
       where: {
         questionId: questionResult.id
       }
     }).then(function(answerChoicesResult) {
-      console.log("answerChoicesResult = " + JSON.stringify(answerChoicesResult));
       answerChoices = answerChoicesResult;
       return [question, answerChoices];
     });
