@@ -1,17 +1,21 @@
 extends layout
 
 block content
-  h2 Add a new survey question
-  form(method='post', action='/addQuestion', name='add-question')
-    .question Question:
-    .questionInputContainer
-      input.questionInput(type='text' name='question' placeholder='question')
-    .answersSection Answer Choices:
-      .answer
-        input.answerInput(type='text' name='answerChoice' placeholder='answer text')
-      .answer
-        input.answerInput(type='text' name='answerChoice' placeholder='answer text')
-      .addAnswer(onclick='addAnswerChoice(this)') + Add Answer Choice
-    .addQuestion.button(type='submit', onclick='addQuestion()') Add Question
+  .addQuestionContainer
+    h2= title
+    form(method='post', action='/addQuestion', name='add-question')
+      .question Question:
+      .questionInputContainer
+        input.questionInput(type='text' name='question' placeholder='question')
+      .answersSection Answer Choices:
+        .answer
+          input.answerInput(type='text' name='answerChoice' placeholder='answer text')
+        .answer
+          input.answerInput(type='text' name='answerChoice' placeholder='answer text')
+        .addAnswer(onclick='addAnswerChoice(this)') + Add Answer Choice
+      .addQuestion.button(type='submit', onclick='addQuestion()') Add Question
+    -if (typeof confirmQuestionSaved !== "undefined"){
+      .confirmSaved= confirmQuestionSaved
+    -}
 
   script(src='/javascripts/clientQuestion.js')

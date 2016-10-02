@@ -1,19 +1,16 @@
-var express = require('express');
-var questionModel = require('../models/question.js');
+var express = require("express");
+var questionModel = require("../models/question.js");
 var router = express.Router();
 
 /* GET add question form. */
-router.get('/', function(req, res, next) {
-  res.render('addQuestion', { title: 'Add Survey Question' });
+router.get("/", function(req, res, next) {
+  res.render('addQuestion', { title: "Add Survey Question" });
 });
 
-router.post('/', function(req, res, next) {
-  console.log('ROUTER: ' + req.body);
+router.post("/", function(req, res, next) {
+  questionModel.saveQuestion(req.body.question, req.body.answerChoice);
 
-
-  const foo = questionModel.saveQuestion(req.body.question, req.body.answerChoice);
-
-  res.send(foo);
+  res.render('addQuestion', { title: "Add Survey Question", confirmQuestionSaved: "Question saved" });
 });
 
 module.exports = router;
