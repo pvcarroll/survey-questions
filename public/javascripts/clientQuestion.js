@@ -1,4 +1,4 @@
-function addAnswer(element) {
+function addAnswerChoice(element) {
     const newAnswer = document.createElement('div');
     newAnswer.className = 'answer';
     const answerInput = document.createElement('input');

@@ -11,17 +11,19 @@ if (process.env.CLEARDB_DATABASE_URL) {
   sequelize = new Sequelize(localMysqlConfig.database, localMysqlConfig.user, localMysqlConfig.password);
 }
 const Answer = sequelize.define("answer", {
-  answer: Sequelize.STRING
+  answer: Sequelize.STRING,
+  questionId: Sequelize.STRING
 });
 
-function saveAnswer(answer) {
-  console.log("SAVE ANSWER");
+function saveAnswer(answer, questionId) {
+
   Answer.sync().then(function() {
     var data = {
-      answer: answer
+      answer: answer,
+      questionId: questionId
     };
     Answer.create(data).then(function(answer) {
-      console.log("answer = " + answer);
+      console.log("ANSWER = " + JSON.stringify(answer));
     });
   });
 }

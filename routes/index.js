@@ -8,11 +8,10 @@ router.get('/', function(req, res, next) {
   renderIndex(res);
 });
 
-router.post('/addAnswer', function(req, res, next) {
-  console.log('POST /addAnswer');
-  console.log(req.body);
-
-  answerModel.saveAnswer(req.body.answerChoice);
+/* Save a survey response */
+router.post("/addAnswer", function(req, res, next) {
+  var answerChoice = JSON.parse(req.body.answerChoice);
+  answerModel.saveAnswer(answerChoice.answer, answerChoice.questionId);
 
   renderIndex(res);
 });
@@ -23,7 +22,7 @@ function renderIndex(res) {
   questionPromise.then(function(questionAndAnswersResult) {
     question = questionAndAnswersResult[0];
     answerChoices = questionAndAnswersResult[1];
-    res.render('index', { title: 'Survey Question', question: question.text, answerChoices: answerChoices });
+    res.render("index", { title: "Survey Question", question: question.text, answerChoices: answerChoices });
   });
 }
 

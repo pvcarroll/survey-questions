@@ -12,6 +12,7 @@ block content
     .answersSection
       each answerChoice in answerChoices
         .answerChoiceGroup
-          input(type="radio" name="answerChoice" value=answerChoice.answer)
+          - var jsonString = JSON.stringify(answerChoice)
+          input(type="radio" name="answerChoice" value=jsonString)
           .answerChoice= answerChoice.answer
       button(type="submit" class="button") Submit
