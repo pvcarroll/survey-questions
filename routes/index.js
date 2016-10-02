@@ -17,12 +17,14 @@ router.post("/addAnswer", function(req, res, next) {
 });
 
 function renderIndex(res) {
-  var question, answerChoices;
+  var question, answerChoices = [];
   var questionPromise = questionModel.getRandomQuestion();
   questionPromise.then(function(questionAndAnswersResult) {
-    question = questionAndAnswersResult[0];
-    answerChoices = questionAndAnswersResult[1];
-    res.render("index", { title: "Survey Question", question: question.text, answerChoices: answerChoices });
+    if (questionAndAnswersResult) {
+      question = questionAndAnswersResult[0].text;
+      answerChoices = questionAndAnswersResult[1];
+    }
+    res.render("index", { title: "Survey Question", question: question, answerChoices: answerChoices });
   });
 }
 
