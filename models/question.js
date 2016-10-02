@@ -33,7 +33,7 @@ function saveQuestion(questionText, answerChoices) {
 
       AnswerChoice.sync().then(function() {
         var data;
-        answerChoices.forEach(function(answerChoice, i) {
+        answerChoices.forEach(function(answerChoice) {
           data = {
             answer: answerChoice,
             questionId: question.id
