@@ -7,10 +7,11 @@ block content
 
   h2= title
 
-  .question= question
-  .answersSection
-    each answerChoice in answerChoices
-      .answerChoiceGroup
-        input(type="radio" name="answerChoice")
-        .answerChoice= answerChoice.answer
-    button(type="submit" class="button") Submit
+  form(action="/addAnswer", method="post")
+    .question= question
+    .answersSection
+      each answerChoice in answerChoices
+        .answerChoiceGroup
+          input(type="radio" name="answerChoice" value=answerChoice.answer)
+          .answerChoice= answerChoice.answer
+      button(type="submit" class="button") Submit
