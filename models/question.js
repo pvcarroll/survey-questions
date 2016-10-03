@@ -14,7 +14,8 @@ const Question = sequelize.define('question', {
   text: Sequelize.STRING
 });
 const AnswerChoice = sequelize.define('answer_choice', {
-  answer: Sequelize.STRING
+  answer: Sequelize.STRING,
+  count: Sequelize.INTEGER
 });
 Question.hasMany(AnswerChoice);
 AnswerChoice.belongsTo(Question, { foreignKey: 'questionId' });
@@ -36,7 +37,8 @@ function saveQuestion(questionText, answerChoices) {
         answerChoices.forEach(function(answerChoice) {
           data = {
             answer: answerChoice,
-            questionId: question.id
+            questionId: question.id,
+            count: 0
           };
           var includeObject = {
             include: [Question]
@@ -74,5 +76,6 @@ function getRandomQuestion() {
 
 module.exports = {
   saveQuestion: saveQuestion,
-  getRandomQuestion: getRandomQuestion
+  getRandomQuestion: getRandomQuestion,
+  AnswerChoice: AnswerChoice
 };
