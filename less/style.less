@@ -9,9 +9,34 @@
   background-color: #FAF476;
 }
 
-.questionInput {
-  background-color: @inputBackground;
-  width: @inputWidth;
+.surveyQuestionContainer,
+.addQuestionContainer {
+  width: 270px;
+  margin: auto;
+}
+
+/* RANDOM SURVEY QUESTION */
+.surveyQuestionContainer {
+
+  .question {
+    font-size: 1.2em;
+  }
+}
+
+/* ADD QUESTION FORM */
+.addQuestionContainer {
+
+  .questionInput {
+    background-color: @inputBackground;
+    width: @inputWidth;
+  }
+  .confirmSaved {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+    border: 1px solid #4F8A10;
+    padding: 3px;
+    text-align: center;
+  }
 }
 
 .answersSection {
@@ -34,23 +59,5 @@
     display: inline-block;
     color: #07C;
     cursor: pointer;
-  }
-}
-
-.surveyQuestionContainer,
-.addQuestionContainer {
-  width: 270px;
-  margin: auto;
-}
-
-/* ADD QUESTION FORM */
-.addQuestionContainer {
-
-  .confirmSaved {
-    color: #4F8A10;
-    background-color: #DFF2BF;
-    border: 1px solid #4F8A10;
-    padding: 3px;
-    text-align: center;
   }
 }
