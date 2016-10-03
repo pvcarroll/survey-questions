@@ -1,6 +1,6 @@
 var mysql = require("mysql");
 var Sequelize = require("sequelize");
-const AnswerChoiceModel = require("./question.js").AnswerChoice;
+// const AnswerChoiceModel = require("./question.js").AnswerChoice;
 
 var sequelize;
 if (process.env.CLEARDB_DATABASE_URL) {
@@ -11,14 +11,19 @@ if (process.env.CLEARDB_DATABASE_URL) {
   const localMysqlConfig = require("../config/localMysqlConfig");
   sequelize = new Sequelize(localMysqlConfig.database, localMysqlConfig.user, localMysqlConfig.password);
 }
+const AnswerChoice = sequelize.define('answer_choice', {
+  answer: Sequelize.STRING,
+  count: Sequelize.INTEGER
+});
 
 function saveAnswer(answerChoice, questionId) {
 
-  AnswerChoiceModel.find({ where: { questionId: questionId, answer: answerChoice }}).then(function(answerChoiceResult) {
+  AnswerChoice.find({ where: { questionId: questionId, answer: answerChoice }}).then(function(answerChoiceResult) {
     answerChoiceResult.increment("count");
   });
 }
 
 module.exports = {
-  saveAnswer
+  AnswerChoice: AnswerChoice,
+  saveAnswer: saveAnswer
 };

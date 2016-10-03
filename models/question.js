@@ -13,10 +13,7 @@ if (process.env.CLEARDB_DATABASE_URL) {
 const Question = sequelize.define('question', {
   text: Sequelize.STRING
 });
-const AnswerChoice = sequelize.define('answer_choice', {
-  answer: Sequelize.STRING,
-  count: Sequelize.INTEGER
-});
+const AnswerChoice = require("./answerChoice").AnswerChoice;
 Question.hasMany(AnswerChoice);
 AnswerChoice.belongsTo(Question, { foreignKey: 'questionId' });
 
@@ -76,6 +73,5 @@ function getRandomQuestion() {
 
 module.exports = {
   saveQuestion: saveQuestion,
-  getRandomQuestion: getRandomQuestion,
-  AnswerChoice: AnswerChoice
+  getRandomQuestion: getRandomQuestion
 };

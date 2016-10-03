@@ -1,6 +1,6 @@
 var express = require("express");
 var questionModel = require("../models/question.js");
-var answerModel = require("../models/answer.js");
+var answerModel = require("../models/answerChoice.js");
 var router = express.Router();
 
 /* GET home page. */
