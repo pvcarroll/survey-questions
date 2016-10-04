@@ -12,9 +12,9 @@ function getSurveyResults(res) {
   return Question.findAll().then(function(questionsResult) {
     console.log("questionsResult = " + questionsResult);
     questionsResult.forEach(function(question, i) {
-      questionWithAnswers = {};
       return AnswerChoice.findAll({ where: { questionId: question.id }}).then(function(answerChoicesResult) {
         console.log("answerChoiceResult = " + answerChoicesResult);
+        questionWithAnswers = {};
         questionWithAnswers.question = question;
         questionWithAnswers.answerChoices = answerChoicesResult;
         surveyResults.push(questionWithAnswers);
