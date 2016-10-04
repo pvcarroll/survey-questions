@@ -72,6 +72,7 @@ function getRandomQuestion() {
 }
 
 module.exports = {
+  Question: Question,
   saveQuestion: saveQuestion,
   getRandomQuestion: getRandomQuestion
 };

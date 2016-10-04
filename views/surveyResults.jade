@@ -2,3 +2,8 @@ extends layout
 
 block content
   h1= title
+  each question in surveyResults
+      h4= question.question.text
+      each answerChoice in question.answerChoices
+        .answerChoice= answerChoice.answer
+        = answerChoice.count
