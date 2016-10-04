@@ -5,13 +5,21 @@ block content
   each question in surveyResults
       table.surveyResultsTable
           thead
-            tr
-              th= question.question.text
-          tbody
               tr
-                th= "Answer Choice"
-                th= "Responses"
-              each answerChoice in question.answerChoices
-                  tr
-                    td.answerChoice= answerChoice.answer
-                    td= answerChoice.count
+                  th(colspan="2")= question.question.text
+          tbody.surveyResultsTableBody
+              tr
+                  td= "Answer Choice:"
+                  td= "Responses:"
+                  - var answerChoiceNumber = 0
+                  each answerChoice in question.answerChoices
+                      - if (answerChoiceNumber % 2 === 0) {
+                          tr.even
+                              td.answerChoice= answerChoice.answer
+                              td= answerChoice.count
+                      - } else {
+                          tr.odd
+                              td.answerChoice= answerChoice.answer
+                              td= answerChoice.count
+                      - }
+                      - answerChoiceNumber++
