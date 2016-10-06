@@ -1,9 +1,10 @@
 var express = require("express");
 var questionModel = require("../models/question.js");
 var router = express.Router();
+var ensureAuthenticated = require("./authRoutes").ensureAuthenticated;
 
 /* GET add question form. */
-router.get("/", function(req, res, next) {
+router.get("/", ensureAuthenticated, function(req, res, next) {
   res.render('addQuestion', { title: "Add Survey Question" });
 });
 

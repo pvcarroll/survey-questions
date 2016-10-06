@@ -9,3 +9,7 @@ block content
             .password Password:
             input(type="password" name="password" placeholder="Password" required)
             button(type="submit" class="button") Login
+            .message= currentUser
+            .message= errors
+            .message= flash
+            .message= message

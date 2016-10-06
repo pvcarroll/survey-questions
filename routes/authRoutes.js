@@ -1,7 +1,5 @@
 var express = require("express");
 var passport = require("passport");
-// var questionModel = require("../models/question.js");
-// var answerModel = require("../models/answerChoice.js");
 var router = express.Router();
 router.use(function(req, res, next) {
   res.locals.currentUser = req.user;
@@ -25,11 +23,16 @@ router.get("/logout", function(req, res) {
   res.redirect("/");
 });
 
-function isLoggedIn(req, res, next) {
+function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
-    return next();
+    next();
+  } else {
+    req.flash("info", "You must be logged in as the admin to see this page.");
+    res.redirect("/login");
   }
-  res.redirect("/");
 }
 
-module.exports = router;
+module.exports = {
+  router: router,
+  ensureAuthenticated: ensureAuthenticated
+};

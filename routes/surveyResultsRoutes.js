@@ -2,8 +2,10 @@ const express = require("express");
 const router = express.Router();
 const Question = require("../models/question.js").Question;
 const AnswerChoice = require("../models/answerChoice.js").AnswerChoice;
+var ensureAuthenticated = require("./authRoutes").ensureAuthenticated;
 
-router.get("/", function(req, res, next) {
+
+router.get("/", ensureAuthenticated, function(req, res, next) {
   getSurveyResults(res);
 });
 
