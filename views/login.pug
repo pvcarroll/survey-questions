@@ -1,0 +1,11 @@
+extends layout
+
+block content
+    .loginContainer
+        .loginLabel Login:
+        form(action="/login" method="post")
+            .username Username:
+            input(type="text" name="username" placeholder="Username" required autofocus)
+            .password Password:
+            input(type="password" name="password" placeholder="Password" required)
+            button(type="submit" class="button") Login
