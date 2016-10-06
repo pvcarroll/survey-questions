@@ -16,6 +16,7 @@ var authentication = require('./routes/authRoutes').router;
 var users = require('./routes/users');
 
 var setUpPassport = require("./setuppassport");
+const PASSPORT_SECRET = (process.env.PASSPORT_SECRET)? process.env.PASSPORT_SECRET : require('./config/passport').secret;
 
 var app = express();
 setUpPassport();
@@ -36,7 +37,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  secret : require('./config/passport').secret,
+  secret : PASSPORT_SECRET,
   resave: true,
   saveUnitialized: true
 }));
