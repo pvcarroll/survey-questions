@@ -29,17 +29,25 @@ var User = sequelize.define('user', {
 var noop = function() {};
 
 (function createAdminUser() {
-  const password = require("../config/passport").password;
-  bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
-    if (err) { return done(err); }
-    bcrypt.hash(password, salt, noop, function(err, hashedPassword) {
-      if (err) { return; }
-      // SAVE ADMIN
-      User.build({ username: ADMIN_USERNAME, password: hashedPassword }).save().then(function(userResult) {
-        return "User saved";
-      }).catch(function(error){});
+  if (process.env.ADMIN_PASSWORD) {
+    // Production
+    User.build({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD }).save().then(function(userResult) {
+      return "User saved";
+    }).catch(function(error){});
+  } else {
+    // Development
+    const password = require("../config/passport").password;
+    bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
+      if (err) { return done(err); }
+      bcrypt.hash(password, salt, noop, function(err, hashedPassword) {
+        if (err) { return; }
+        // SAVE ADMIN
+        User.build({ username: ADMIN_USERNAME, password: hashedPassword }).save().then(function(userResult) {
+          return "User saved";
+        }).catch(function(error){});
+      });
     });
-  });
+  }
 })();
 
 User.checkPassword = function(guess, done) {
