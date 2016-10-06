@@ -2,6 +2,7 @@ extends layout
 
 block content
   button(class="button" onclick="location.href='/'") Homepage
+  button(class="button" onclick="location.href='/logout'" class="logout") Logout
   h1= title
   each question in surveyResults
       table.surveyResultsTable

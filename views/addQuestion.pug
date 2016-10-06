@@ -2,6 +2,7 @@ extends layout
 
 block content
   button(class="button" onclick="location.href='/'") Homepage
+  button(class="button" onclick="location.href='/logout'" class="logout") Logout
   .addQuestionContainer
     h2= title
     form(method='post', action='/addQuestion', name='add-question')
