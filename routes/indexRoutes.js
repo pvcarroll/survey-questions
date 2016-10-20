@@ -5,7 +5,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  renderIndex(res);
+  renderIndex(req, res);
 });
 
 /* Save a survey response */
@@ -13,10 +13,11 @@ router.post("/addAnswer", function(req, res, next) {
   var answerChoice = JSON.parse(req.body.answerChoice);
   answerModel.saveAnswer(answerChoice.answer, answerChoice.questionId);
 
-  renderIndex(res);
+  renderIndex(req, res);
 });
 
-function renderIndex(res) {
+function renderIndex(req, res) {
+  var currentUser = (req.user) ? req.user.username : "";
   var question, answerChoices = [];
   var questionPromise = questionModel.getRandomQuestion();
   questionPromise.then(function(questionAndAnswersResult) {
@@ -24,7 +25,10 @@ function renderIndex(res) {
       question = questionAndAnswersResult[0].text;
       answerChoices = questionAndAnswersResult[1];
     }
-    res.render("index", { title: "Survey Question", question: question, answerChoices: answerChoices });
+    res.render("index", { title: "Survey Question",
+                          question: question,
+                          answerChoices: answerChoices,
+                          currentUser: currentUser });
   });
 }
 

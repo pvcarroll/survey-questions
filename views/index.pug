@@ -1,10 +1,16 @@
 extends layout
 
 block content
-  button(class="button" onclick="location.href='/login'") Login
+  if (currentUser)
+    button(class="button disabled") Login
+  else
+    button(class="button" onclick="location.href='/login'") Login
   button(class="button" onclick="location.href='/addQuestion'") Add Question
   button(class="button" onclick="location.href='/surveyResults'") View Survey Results
-  button(class="button" onclick="location.href='/logout'" class="logout") Logout
+  if (currentUser)
+    button(class="button logout" onclick="location.href='/logout'") Logout
+  else
+    button(class="button logout disabled") Logout
 
   .surveyQuestionContainer
     h2= title
